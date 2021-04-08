@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,91 +12,98 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-public class DecisionTreeVisualizer
-{
+public class DecisionTreeVisualizer {
 	private static final int HORIZ_SKIP = 10;
-	private static final int VERT_SKIP = 30;
+	private static final int VERT_SKIP = 50;
 	private static final int NODE_WIDTH = 60;
 	private static final int NODE_HEIGHT = 20;
 	private static final Font NORMAL_FONT = new Font("Dialog", Font.PLAIN, 9);
-	private static final Font HEADER_FONT = new Font("Dialog", Font.BOLD, 14);
 	private static final Color LEAF_COLOR0 = Color.RED;
 	private static final Color LEAF_COLOR1 = Color.GREEN;
 	private static final Color LEAF_COLOR_UNDEFINED = Color.ORANGE;
-	private static final int MAX_HEIGHT = 4;
+	// Comment out the following line and uncomment the line after that to see
+	// the full tree
+	// Note that this may make the tree hard to read if the height is large
+	private static final int MAX_DEPTH = 4;
+	// private static final int MAX_DEPTH = Integer.MAX_VALUE;
 
 	private JFrame window;
 
-	public DecisionTreeVisualizer(DecisionTree dt, String header)
-	{
-		javax.swing.SwingUtilities.invokeLater(new Runnable()
-		{
+	public DecisionTreeVisualizer(DecisionTree dt, String header) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			@Override
-			public void run()
-			{
+			public void run() {
 				createAndShowGUI(dt, header);
 			}
 		});
 	}
 
-	private void createAndShowGUI(DecisionTree dt, String header)
-	{
-		window = new JFrame("DecisionTree Visualizer");
+	private void createAndShowGUI(DecisionTree dt, String header) {
+		window = new JFrame();
 		window.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-		window.setSize(1300, 600);
+		window.setSize(1400, 800);
 		window.setLocationRelativeTo(null);
+
+		JPanel pane = new JPanel();
+		pane.setLayout(new BorderLayout());
+		window.add(pane);
 
 		JPanel contentPane = new JPanel();
 		contentPane.setLayout(null);
 		JScrollPane scrollPane = new JScrollPane(contentPane);
-		window.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.getHorizontalScrollBar().setUnitIncrement(15);
+		scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+		pane.add(scrollPane, BorderLayout.CENTER);
+
+		String headerText = "DecisionTree Visualizer: " + header;
 
 		// Draw tree
-		if (dt == null)
-		{
+		if (dt == null) {
 			JLabel nullLabel = new JLabel("[null]");
 			nullLabel.setFont(NORMAL_FONT);
-			nullLabel.setBounds(400, 250, (int)nullLabel.getPreferredSize().getWidth(),
-					(int)nullLabel.getPreferredSize().getHeight());
+			nullLabel.setBounds(400, 250,
+					(int) nullLabel.getPreferredSize().getWidth(),
+					(int) nullLabel.getPreferredSize().getHeight());
 			contentPane.add(nullLabel);
-		}
-		else
-		{
+		} else {
 			int h = getHeight(dt.rootDTNode);
-			int maxBottomNodes = (int)Math.pow(2, h);
-			int imageWidth = maxBottomNodes * (NODE_WIDTH + HORIZ_SKIP) + HORIZ_SKIP;
+			if (h > MAX_DEPTH)
+				headerText += " [trimmed to depth of " + MAX_DEPTH + "]";
+			h = Math.min(h, MAX_DEPTH);
+
+			int maxBottomNodes = (int) Math.pow(2, h);
+			int imageWidth = maxBottomNodes * (NODE_WIDTH + HORIZ_SKIP)
+					+ HORIZ_SKIP;
 			int imageHeight = (1 + h) * (NODE_HEIGHT + VERT_SKIP) + VERT_SKIP;
-			contentPane.setSize(imageWidth, imageHeight);
-			scrollPane.setSize(imageWidth, imageHeight);
-			drawTree(dt.rootDTNode, new Rectangle(0, 30, imageWidth, imageHeight), contentPane, 0);
+			contentPane.setMinimumSize(new Dimension(imageWidth, imageHeight));
+			contentPane
+					.setPreferredSize(new Dimension(imageWidth, imageHeight));
+			contentPane.setMaximumSize(new Dimension(imageWidth, imageHeight));
+			drawTree(dt.rootDTNode,
+					new Rectangle(0, 30, imageWidth, imageHeight), contentPane,
+					0);
 		}
 
 		// Header
-		JLabel headerLabel = new JLabel(header);
-		headerLabel.setFont(HEADER_FONT);
-		headerLabel.setBounds(0, 0, (int)headerLabel.getPreferredSize().getWidth(),
-				(int)headerLabel.getPreferredSize().getHeight());
-		contentPane.add(headerLabel);
-
+		window.setTitle(headerText);
 		window.setVisible(true);
 	}
 
-	private int getHeight(DecisionTree.DTNode root)
-	{
+	private int getHeight(DecisionTree.DTNode root) {
 		if (root.left == null && root.right == null)
 			return 0;
 
-		int height = 1 + Math.max(getHeight(root.left), getHeight(root.right));
-		return Math.min(height, MAX_HEIGHT);
+		return 1 + Math.max(getHeight(root.left), getHeight(root.right));
 	}
 
-	private void drawTree(DecisionTree.DTNode root, Rectangle canvas, JPanel contentPane, int depth)
-	{
-		if (depth > MAX_HEIGHT)
+	private void drawTree(DecisionTree.DTNode root, Rectangle canvas,
+			JPanel contentPane, int depth) {
+		if (depth > MAX_DEPTH)
 			return;
 		if (root == null)
 			return;
@@ -103,62 +111,61 @@ public class DecisionTreeVisualizer
 		JLabel rootLabel = makeLabel(root);
 		contentPane.add(rootLabel);
 		double centerX = canvas.getCenterX();
-		rootLabel.setBounds((int)(centerX - NODE_WIDTH / 2), (int)canvas.getMinY(), NODE_WIDTH,
-				NODE_HEIGHT);
+		rootLabel.setBounds((int) (centerX - NODE_WIDTH / 2),
+				(int) canvas.getMinY(), NODE_WIDTH, NODE_HEIGHT);
 
 		// TODO Children
-		if (root.left != null)
-		{
-			int newX = (int)canvas.getX();
-			int newY = (int)(canvas.getMinY() + NODE_HEIGHT + VERT_SKIP);
-			int newWidth = (int)(canvas.getWidth() / 2);
-			int newHeight = (int)(canvas.getHeight() - NODE_HEIGHT - VERT_SKIP);
-			Rectangle leftCanvas = new Rectangle(newX, newY, newWidth, newHeight);
+		if (root.left != null) {
+			int newX = (int) canvas.getX();
+			int newY = (int) (canvas.getMinY() + NODE_HEIGHT + VERT_SKIP);
+			int newWidth = (int) (canvas.getWidth() / 2);
+			int newHeight = (int) (canvas.getHeight() - NODE_HEIGHT
+					- VERT_SKIP);
+			Rectangle leftCanvas = new Rectangle(newX, newY, newWidth,
+					newHeight);
 			drawTree(root.left, leftCanvas, contentPane, depth + 1);
 
 			// Connect parent to child
-			int parentX = (int)centerX;
-			int parentY = (int)(canvas.getY() + NODE_HEIGHT);
-			int leftChildX = (int)(leftCanvas.getCenterX());
+			int parentX = (int) centerX;
+			int parentY = (int) (canvas.getY() + NODE_HEIGHT);
+			int leftChildX = (int) (leftCanvas.getCenterX());
 			int leftChildY = parentY + VERT_SKIP;
-			if (depth < MAX_HEIGHT)
-			{
+			if (depth < MAX_DEPTH) {
 				Line line = new Line(parentX, parentY, leftChildX, leftChildY);
 				contentPane.add(line);
 			}
 		}
-		if (root.right != null)
-		{
-			int newX = (int)(canvas.getX() + canvas.getWidth() / 2);
-			int newY = (int)(canvas.getMinY() + NODE_HEIGHT + VERT_SKIP);
-			int newWidth = (int)(canvas.getWidth() / 2);
-			int newHeight = (int)(canvas.getHeight() - NODE_HEIGHT - VERT_SKIP);
-			Rectangle rightCanvas = new Rectangle(newX, newY, newWidth, newHeight);
+		if (root.right != null) {
+			int newX = (int) (canvas.getX() + canvas.getWidth() / 2);
+			int newY = (int) (canvas.getMinY() + NODE_HEIGHT + VERT_SKIP);
+			int newWidth = (int) (canvas.getWidth() / 2);
+			int newHeight = (int) (canvas.getHeight() - NODE_HEIGHT
+					- VERT_SKIP);
+			Rectangle rightCanvas = new Rectangle(newX, newY, newWidth,
+					newHeight);
 			drawTree(root.right, rightCanvas, contentPane, depth + 1);
 
 			// Connect parent to child
-			int parentX = (int)centerX;
-			int parentY = (int)(canvas.getY() + NODE_HEIGHT);
-			int rightChildX = (int)(rightCanvas.getCenterX());
+			int parentX = (int) centerX;
+			int parentY = (int) (canvas.getY() + NODE_HEIGHT);
+			int rightChildX = (int) (rightCanvas.getCenterX());
 			int rightChildY = parentY + VERT_SKIP;
-			if (depth < MAX_HEIGHT)
-			{
-				Line line = new Line(parentX, parentY, rightChildX, rightChildY);
+			if (depth < MAX_DEPTH) {
+				Line line = new Line(parentX, parentY, rightChildX,
+						rightChildY);
 				contentPane.add(line);
 			}
 		}
 	}
 
-	private JLabel makeLabel(DecisionTree.DTNode node)
-	{
+	private JLabel makeLabel(DecisionTree.DTNode node) {
 		JLabel nodeLabel = new JLabel();
 		nodeLabel.setSize(NODE_WIDTH, NODE_HEIGHT);
 		nodeLabel.setFont(NORMAL_FONT);
 		nodeLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		nodeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-		if (node.leaf)
-		{
+		if (node.leaf) {
 			nodeLabel.setText(Integer.toString(node.label));
 			nodeLabel.setOpaque(true);
 			if (node.label == 0)
@@ -167,17 +174,15 @@ public class DecisionTreeVisualizer
 				nodeLabel.setBackground(LEAF_COLOR1);
 			else
 				nodeLabel.setBackground(LEAF_COLOR_UNDEFINED);
-		}
-		else
-		{
-			nodeLabel.setText(String.format("x%d < %.2f", node.attribute, node.threshold));
+		} else {
+			nodeLabel.setText(String.format("x%d < %.2f", node.attribute,
+					node.threshold));
 		}
 
 		return nodeLabel;
 	}
 
-	private class Line extends JPanel
-	{
+	private class Line extends JPanel {
 		private static final long serialVersionUID = -5451293947087728291L;
 
 		int x0;
@@ -185,8 +190,7 @@ public class DecisionTreeVisualizer
 		int x1;
 		int y1;
 
-		private Line(int x0, int y0, int x1, int y1)
-		{
+		private Line(int x0, int y0, int x1, int y1) {
 			this.x0 = x0;
 			this.y0 = y0;
 			this.x1 = x1;
@@ -201,8 +205,7 @@ public class DecisionTreeVisualizer
 		}
 
 		@Override
-		protected void paintComponent(Graphics g)
-		{
+		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
 
 			int x = Math.min(x0, x1);
