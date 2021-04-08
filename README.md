@@ -9,8 +9,8 @@ Only add TEST CODE here, not actual assignment code. If you accidentally pushed 
 ## How To Use
 
 - [Recommended] You may clone this repo to your Intellij or your preferred IDE. If you aren't familiar with Git, our amazing TA Sasha made a tutorial: https://www.youtube.com/playlist?list=PLFvevpoGcNCvjyTjOfPhzqjgb-L_WdX8r
-- If you're not familiar with git, you can download the files from the main repo page by clicking ↓Code > Download ZIP. You must put the source code in the default package with the other assignment files.
-- [Not recommended] Worst case scenario, you may manually copy paste all files in the default package.
+- If you aren't familiar with Git, you can download the files from the main repo page by clicking ↓Code > Download ZIP. You must put the source code in the default package with the other assignment files.
+- [Not recommended] Worst case scenario, you may manually copy paste all files into the default package.
 - You may also add new tests and create pull requests.
 - Happy coding and debugging!
 
