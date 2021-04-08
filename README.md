@@ -34,4 +34,6 @@ Regularly update the tester (pull the repository). Your assignment files will be
 
 At the top of every FillDTNode test in Tester.java you'll find two booleans: verbose and force (which should both be false by default). If verbose is set to true and that test fails, the DecisionTreeVisualizer will be launched and the main tester will pause. If both verbose and force are set to true, the visualizer will be launched even if the test passes.
 
+When the visualizer launches, two windows will be created. The one titled "DecisionTree Visualizer: Expected" shows the DecisionTree that should have been created. The one titled "DecisionTree Visualizer: Received" shows the DecisionTree that was produced by your code.
+
 By default, the tree is trimmed to a certain maximum height. If you wish to see the entire tree, you can open DecisionTreeVisualizer.java, comment out line 32, and uncomment line 33. Note that this will make the tree hard to read in many cases.
