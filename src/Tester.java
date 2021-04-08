@@ -576,6 +576,41 @@ class FillDTNode_Partial3 implements Runnable {
 // ==========================================================================================
 
 /*
+ * Calls dtNode.equals(String) (expects false and no ClassCastException)
+ */
+class Equals_String implements Runnable {
+	@SuppressWarnings("unlikely-arg-type")
+	@Override
+	public void run() {
+		DecisionTree dt = ReadFile
+				.getDTFromFile("data_high_overlap/thresh4.ser");
+
+		boolean equal = dt.rootDTNode.equals("a string");
+		if (equal)
+			throw new AssertionError("dtNode.equals(String) returned true");
+		else
+			System.out.println("Test passed.");
+	}
+}
+
+/*
+ * Calls dtNode.equals(null) (expects false and no ClassCastException)
+ */
+class Equals_Null implements Runnable {
+	@Override
+	public void run() {
+		DecisionTree dt = ReadFile
+				.getDTFromFile("data_high_overlap/thresh4.ser");
+
+		boolean equal = dt.rootDTNode.equals(null);
+		if (equal)
+			throw new AssertionError("dtNode.equals(null) returned true");
+		else
+			System.out.println("Test passed.");
+	}
+}
+
+/*
  * Checks that every method (including private ones) in Datum.java is one of the
  * required methods
  */
@@ -1146,15 +1181,31 @@ class TConstructor {
 public class Tester {
 	private static Scanner sc = new Scanner(System.in);
 	// To skip running some tests, just comment them out below.
-	static String[] tests = {"General_extra_code", "DecisionTree_classify1",
-			"DecisionTree_classify2", "DecisionTree_classify3",
-			"DecisionTree_classify4", "Equals_HighDiffFiles",
-			"Equals_HighSameFiles", "Equals_MinDiffFiles",
-			"Equals_MinSameFiles", "Equals_PartialDiffFiles",
-			"Equals_PartialSameFiles", "FillDTNode_High1", "FillDTNode_High2",
-			"FillDTNode_High3", "FillDTNode_Min1", "FillDTNode_Min2",
-			"FillDTNode_Min3", "FillDTNode_Min4", "FillDTNode_Partial1",
-			"FillDTNode_Partial2", "FillDTNode_Partial3"};
+	static String[] tests = {
+			"General_extra_code",
+			"DecisionTree_classify1",
+			"DecisionTree_classify2",
+			"DecisionTree_classify3",
+			"DecisionTree_classify4",
+			"Equals_HighDiffFiles",
+			"Equals_HighSameFiles",
+			"Equals_MinDiffFiles",
+			"Equals_MinSameFiles",
+			"Equals_PartialDiffFiles",
+			"Equals_PartialSameFiles",
+			"FillDTNode_High1",
+			"FillDTNode_High2",
+			"FillDTNode_High3",
+			"FillDTNode_Min1",
+			"FillDTNode_Min2",
+			"FillDTNode_Min3",
+			"FillDTNode_Min4",
+			"FillDTNode_Partial1",
+			"FillDTNode_Partial2",
+			"FillDTNode_Partial3",
+			"Equals_String",
+			"Equals_Null"
+	};
 
 	public static void main(String[] args) {
 		int numPassed = 0;
