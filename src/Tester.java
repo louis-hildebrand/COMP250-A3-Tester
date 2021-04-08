@@ -10,12 +10,10 @@ import java.util.Scanner;
 // Official tests
 //==========================================================================================
 
-class DecisionTree_classify1 implements Runnable
-{
+class DecisionTree_classify1 implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 
 		DataReader dr = ReadFile.getCSVDataReader("data_minimal_overlap.csv");
@@ -26,40 +24,34 @@ class DecisionTree_classify1 implements Runnable
 
 		int counter = 0;
 		int total = dr.trainData.size();
-		for (int i = 0; i < total; i++)
-		{
+		for (int i = 0; i < total; i++) {
 			double[] attrs = dr.trainData.get(i).x;
 			int correctLabel = dr.trainData.get(i).y;
 			int classifiedAs = dt.classify(attrs);
 
-			if (verbose)
-			{
+			if (verbose) {
 				System.out.println("Attributes: " + Arrays.toString(attrs));
 				System.out.println("Correct label: " + correctLabel
 						+ ", Your classification :" + classifiedAs);
 			}
-			if (correctLabel == classifiedAs)
-			{
+			if (correctLabel == classifiedAs) {
 				counter++;
 			}
 		}
 		System.out.println(
 				"Number of correct outputs : " + counter + " out of " + total);
 
-		if (counter != total)
-		{
+		if (counter != total) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class DecisionTree_classify2 implements Runnable
-{
+class DecisionTree_classify2 implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 
 		DataReader dr = ReadFile.getCSVDataReader("data_partial_overlap.csv");
@@ -70,40 +62,34 @@ class DecisionTree_classify2 implements Runnable
 
 		int counter = 0;
 		int total = dr.trainData.size();
-		for (int i = 0; i < total; i++)
-		{
+		for (int i = 0; i < total; i++) {
 			double[] attrs = dr.trainData.get(i).x;
 			int correctLabel = dr.trainData.get(i).y;
 			int classifiedAs = dt.classify(attrs);
 
-			if (verbose)
-			{
+			if (verbose) {
 				System.out.println("Attributes: " + Arrays.toString(attrs));
 				System.out.println("Correct label: " + correctLabel
 						+ ", Your classification :" + classifiedAs);
 			}
-			if (correctLabel == classifiedAs)
-			{
+			if (correctLabel == classifiedAs) {
 				counter++;
 			}
 		}
 		System.out.println(
 				"Number of correct outputs : " + counter + " out of " + total);
 
-		if (counter != total)
-		{
+		if (counter != total) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class DecisionTree_classify3 implements Runnable
-{
+class DecisionTree_classify3 implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 
 		DataReader dr = ReadFile.getCSVDataReader("data_high_overlap.csv");
@@ -114,40 +100,34 @@ class DecisionTree_classify3 implements Runnable
 
 		int counter = 0;
 		int total = dr.trainData.size();
-		for (int i = 0; i < total; i++)
-		{
+		for (int i = 0; i < total; i++) {
 			double[] attrs = dr.trainData.get(i).x;
 			int correctLabel = dr.trainData.get(i).y;
 			int classifiedAs = dt.classify(attrs);
 
-			if (verbose)
-			{
+			if (verbose) {
 				System.out.println("Attributes: " + Arrays.toString(attrs));
 				System.out.println("Correct label: " + correctLabel
 						+ ", Your classification :" + classifiedAs);
 			}
-			if (correctLabel == classifiedAs)
-			{
+			if (correctLabel == classifiedAs) {
 				counter++;
 			}
 		}
 		System.out.println(
 				"Number of correct outputs : " + counter + " out of " + total);
 
-		if (counter != total)
-		{
+		if (counter != total) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class DecisionTree_classify4 implements Runnable
-{
+class DecisionTree_classify4 implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 
 		DataReader dr = ReadFile.getCSVDataReader("data_minimal_overlap.csv");
@@ -158,147 +138,123 @@ class DecisionTree_classify4 implements Runnable
 
 		int counter = 0;
 		int total = dr.trainData.size();
-		for (int i = 0; i < total; i++)
-		{
+		for (int i = 0; i < total; i++) {
 			double[] attrs = dr.trainData.get(i).x;
 			int correctLabel = dr.trainData.get(i).y;
 			int classifiedAs = dt.classify(attrs);
 
-			if (verbose)
-			{
+			if (verbose) {
 				System.out.println("Attributes: " + Arrays.toString(attrs));
 				System.out.println("Correct label: " + correctLabel
 						+ ", Your classification :" + classifiedAs);
 			}
-			if (correctLabel == classifiedAs)
-			{
+			if (correctLabel == classifiedAs) {
 				counter++;
 			}
 		}
 		System.out.println(
 				"Number of correct outputs : " + counter + " out of " + total);
 
-		if (counter != total)
-		{
+		if (counter != total) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class Equals_HighDiffFiles implements Runnable
-{
+class Equals_HighDiffFiles implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		DecisionTree dt1 = ReadFile
 				.getDTFromFile("data_high_overlap/thresh4.ser");
 		DecisionTree dt2 = ReadFile
 				.getDTFromFile("data_high_overlap/thresh1.ser");
-		if (DecisionTree.equals(dt1, dt2))
-		{
+		if (DecisionTree.equals(dt1, dt2)) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class Equals_HighSameFiles implements Runnable
-{
+class Equals_HighSameFiles implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		DecisionTree dt1 = ReadFile
 				.getDTFromFile("data_high_overlap/thresh1.ser");
 		DecisionTree dt2 = ReadFile
 				.getDTFromFile("data_high_overlap/thresh1.ser");
-		if (!DecisionTree.equals(dt1, dt2))
-		{
+		if (!DecisionTree.equals(dt1, dt2)) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class Equals_MinDiffFiles implements Runnable
-{
+class Equals_MinDiffFiles implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		DecisionTree dt1 = ReadFile
 				.getDTFromFile("data_minimal_overlap/thresh8.ser");
 		DecisionTree dt2 = ReadFile
 				.getDTFromFile("data_minimal_overlap/thresh1.ser");
-		if (DecisionTree.equals(dt1, dt2))
-		{
+		if (DecisionTree.equals(dt1, dt2)) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class Equals_MinSameFiles implements Runnable
-{
+class Equals_MinSameFiles implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		DecisionTree dt1 = ReadFile
 				.getDTFromFile("data_minimal_overlap/thresh4.ser");
 		DecisionTree dt2 = ReadFile
 				.getDTFromFile("data_minimal_overlap/thresh4.ser");
-		if (!DecisionTree.equals(dt1, dt2))
-		{
+		if (!DecisionTree.equals(dt1, dt2)) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class Equals_PartialDiffFiles implements Runnable
-{
+class Equals_PartialDiffFiles implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		DecisionTree dt1 = ReadFile
 				.getDTFromFile("data_partial_overlap/thresh4.ser");
 		DecisionTree dt2 = ReadFile
 				.getDTFromFile("data_partial_overlap/thresh1.ser");
-		if (DecisionTree.equals(dt1, dt2))
-		{
+		if (DecisionTree.equals(dt1, dt2)) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class Equals_PartialSameFiles implements Runnable
-{
+class Equals_PartialSameFiles implements Runnable {
 
 	@Override
-	public void run()
-	{
+	public void run() {
 		DecisionTree dt1 = ReadFile
 				.getDTFromFile("data_high_overlap/thresh1.ser");
 		DecisionTree dt2 = ReadFile
 				.getDTFromFile("data_high_overlap/thresh1.ser");
-		if (!DecisionTree.equals(dt1, dt2))
-		{
+		if (!DecisionTree.equals(dt1, dt2)) {
 			throw new AssertionError("Test failed.");
 		}
 		System.out.println("Test passed.");
 	}
 }
 
-class FillDTNode_High1 implements Runnable
-{
+class FillDTNode_High1 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -310,10 +266,8 @@ class FillDTNode_High1 implements Runnable
 				.getDTFromFile("data_high_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -321,8 +275,7 @@ class FillDTNode_High1 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -331,11 +284,9 @@ class FillDTNode_High1 implements Runnable
 	}
 }
 
-class FillDTNode_High2 implements Runnable
-{
+class FillDTNode_High2 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -347,10 +298,8 @@ class FillDTNode_High2 implements Runnable
 				.getDTFromFile("data_high_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -358,8 +307,7 @@ class FillDTNode_High2 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -368,11 +316,9 @@ class FillDTNode_High2 implements Runnable
 	}
 }
 
-class FillDTNode_High3 implements Runnable
-{
+class FillDTNode_High3 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -384,10 +330,8 @@ class FillDTNode_High3 implements Runnable
 				.getDTFromFile("data_high_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -395,8 +339,7 @@ class FillDTNode_High3 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -405,11 +348,9 @@ class FillDTNode_High3 implements Runnable
 	}
 }
 
-class FillDTNode_Min1 implements Runnable
-{
+class FillDTNode_Min1 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -421,10 +362,8 @@ class FillDTNode_Min1 implements Runnable
 				"data_minimal_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -432,8 +371,7 @@ class FillDTNode_Min1 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -442,11 +380,9 @@ class FillDTNode_Min1 implements Runnable
 	}
 }
 
-class FillDTNode_Min2 implements Runnable
-{
+class FillDTNode_Min2 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -458,10 +394,8 @@ class FillDTNode_Min2 implements Runnable
 				"data_minimal_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -469,8 +403,7 @@ class FillDTNode_Min2 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -479,11 +412,9 @@ class FillDTNode_Min2 implements Runnable
 	}
 }
 
-class FillDTNode_Min3 implements Runnable
-{
+class FillDTNode_Min3 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -495,10 +426,8 @@ class FillDTNode_Min3 implements Runnable
 				"data_minimal_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -506,8 +435,7 @@ class FillDTNode_Min3 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -516,11 +444,9 @@ class FillDTNode_Min3 implements Runnable
 	}
 }
 
-class FillDTNode_Min4 implements Runnable
-{
+class FillDTNode_Min4 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -532,10 +458,8 @@ class FillDTNode_Min4 implements Runnable
 				"data_minimal_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -543,8 +467,7 @@ class FillDTNode_Min4 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -553,11 +476,9 @@ class FillDTNode_Min4 implements Runnable
 	}
 }
 
-class FillDTNode_Partial1 implements Runnable
-{
+class FillDTNode_Partial1 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -569,10 +490,8 @@ class FillDTNode_Partial1 implements Runnable
 				"data_partial_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -580,8 +499,7 @@ class FillDTNode_Partial1 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -590,11 +508,9 @@ class FillDTNode_Partial1 implements Runnable
 	}
 }
 
-class FillDTNode_Partial2 implements Runnable
-{
+class FillDTNode_Partial2 implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		boolean verbose = false;
 		boolean force = false;
 
@@ -606,10 +522,8 @@ class FillDTNode_Partial2 implements Runnable
 				"data_partial_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -617,8 +531,7 @@ class FillDTNode_Partial2 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -627,13 +540,11 @@ class FillDTNode_Partial2 implements Runnable
 	}
 }
 
-class FillDTNode_Partial3 implements Runnable
-{
+class FillDTNode_Partial3 implements Runnable {
 	@Override
-	public void run()
-	{
-		boolean verbose = true;
-		boolean force = true;
+	public void run() {
+		boolean verbose = false;
+		boolean force = false;
 
 		int threshold = 16;
 		DataReader dr = ReadFile.getCSVDataReader("data_partial_overlap.csv");
@@ -643,10 +554,8 @@ class FillDTNode_Partial3 implements Runnable
 				"data_partial_overlap/thresh" + threshold + ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
-		if (!DecisionTree.equals(serdt, dt))
-		{
-			if (verbose)
-			{
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
 				new DecisionTreeVisualizer(serdt, "Expected");
 				new DecisionTreeVisualizer(dt, "Received");
 				Tester.pause();
@@ -654,8 +563,7 @@ class FillDTNode_Partial3 implements Runnable
 			throw new AssertionError("Test failed.");
 		}
 
-		if (verbose && force)
-		{
+		if (verbose && force) {
 			new DecisionTreeVisualizer(serdt, "Expected");
 			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
 			Tester.pause();
@@ -671,25 +579,20 @@ class FillDTNode_Partial3 implements Runnable
  * Checks that every method (including private ones) in Datum.java is one of the
  * required methods
  */
-class Datum_extra_methods implements Runnable
-{
+class Datum_extra_methods implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<Datum> cls = Datum.class;
 		TMethod[] requiredMethods = getRequiredMethods();
 
-		for (Method m : cls.getDeclaredMethods())
-		{
-			if (!TMethod.elementOf(m, requiredMethods))
-			{
+		for (Method m : cls.getDeclaredMethods()) {
+			if (!TMethod.elementOf(m, requiredMethods)) {
 				throw new AssertionError("Extra method found: " + m);
 			}
 		}
 	}
 
-	private TMethod[] getRequiredMethods()
-	{
+	private TMethod[] getRequiredMethods() {
 		TMethod[] requiredMethods = new TMethod[1];
 		requiredMethods[0] = new TMethod(Modifier.PUBLIC, String.class,
 				"toString", new Class[0], new Class[0]);
@@ -701,37 +604,32 @@ class Datum_extra_methods implements Runnable
  * Checks that every method (including private ones) in DataReader is one of the
  * required methods
  */
-class DataReader_extra_methods implements Runnable
-{
+class DataReader_extra_methods implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<DataReader> cls = DataReader.class;
 		TMethod[] requiredMethods = getRequiredMethods();
 
-		for (Method m : cls.getDeclaredMethods())
-		{
-			if (!TMethod.elementOf(m, requiredMethods))
-			{
+		for (Method m : cls.getDeclaredMethods()) {
+			if (!TMethod.elementOf(m, requiredMethods)) {
 				throw new AssertionError(
 						"Extra non-private method found: " + m);
 			}
 		}
 	}
 
-	private TMethod[] getRequiredMethods()
-	{
+	private TMethod[] getRequiredMethods() {
 		TMethod[] requiredMethods = new TMethod[4];
 		requiredMethods[0] = new TMethod(0, Void.TYPE, "read_data",
-				new Class[] { String.class }, new Class[] { Exception.class });
+				new Class[]{String.class}, new Class[]{Exception.class});
 		requiredMethods[1] = new TMethod(0, Void.TYPE, "splitTrainTestData",
-				new Class[] { double.class }, new Class[0]);
+				new Class[]{double.class}, new Class[0]);
 		requiredMethods[2] = new TMethod(Modifier.PUBLIC + Modifier.STATIC,
 				Void.TYPE, "writeSerializedTree",
-				new Class[] { DecisionTree.class, String.class }, new Class[0]);
+				new Class[]{DecisionTree.class, String.class}, new Class[0]);
 		requiredMethods[3] = new TMethod(Modifier.PUBLIC + Modifier.STATIC,
 				DecisionTree.class, "readSerializedTree",
-				new Class[] { String.class }, new Class[0]);
+				new Class[]{String.class}, new Class[0]);
 		return requiredMethods;
 	}
 }
@@ -740,37 +638,32 @@ class DataReader_extra_methods implements Runnable
  * Checks that every non-private method in DataReader is one of the required
  * methods
  */
-class DecisionTree_extra_methods implements Runnable
-{
+class DecisionTree_extra_methods implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<DecisionTree> cls = DecisionTree.class;
 		TMethod[] requiredMethods = getRequiredMethods();
 
-		for (Method m : cls.getDeclaredMethods())
-		{
+		for (Method m : cls.getDeclaredMethods()) {
 			if (!Modifier.isPrivate(m.getModifiers())
-					&& !TMethod.elementOf(m, requiredMethods))
-			{
+					&& !TMethod.elementOf(m, requiredMethods)) {
 				throw new AssertionError(
 						"Extra non-private method found: " + m);
 			}
 		}
 	}
 
-	private TMethod[] getRequiredMethods()
-	{
+	private TMethod[] getRequiredMethods() {
 		TMethod[] requiredMethods = new TMethod[4];
 		requiredMethods[0] = new TMethod(0, double.class, "calcEntropy",
-				new Class[] { ArrayList.class }, new Class[0]);
+				new Class[]{ArrayList.class}, new Class[0]);
 		requiredMethods[1] = new TMethod(0, int.class, "classify",
-				new Class[] { double[].class }, new Class[0]);
+				new Class[]{double[].class}, new Class[0]);
 		requiredMethods[2] = new TMethod(0, String.class, "checkPerformance",
-				new Class[] { ArrayList.class }, new Class[0]);
+				new Class[]{ArrayList.class}, new Class[0]);
 		requiredMethods[3] = new TMethod(Modifier.PUBLIC + Modifier.STATIC,
 				boolean.class, "equals",
-				new Class[] { DecisionTree.class, DecisionTree.class },
+				new Class[]{DecisionTree.class, DecisionTree.class},
 				new Class[0]);
 		return requiredMethods;
 	}
@@ -780,23 +673,19 @@ class DecisionTree_extra_methods implements Runnable
  * Checks that every field (including private ones) in Datum is one of the
  * required fields
  */
-class Datum_extra_fields implements Runnable
-{
+class Datum_extra_fields implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<Datum> cls = Datum.class;
 		TField[] requiredFields = getRequiredFields();
 
-		for (Field f : cls.getDeclaredFields())
-		{
+		for (Field f : cls.getDeclaredFields()) {
 			if (!TField.elementOf(f, requiredFields))
 				throw new AssertionError("Extra field found: " + f);
 		}
 	}
 
-	private TField[] getRequiredFields()
-	{
+	private TField[] getRequiredFields() {
 		TField[] requiredFields = new TField[2];
 		requiredFields[0] = new TField(0, double[].class, "x");
 		requiredFields[1] = new TField(0, int.class, "y");
@@ -808,23 +697,19 @@ class Datum_extra_fields implements Runnable
  * Checks that every field (including private ones) in DataReader is one of the
  * required fields
  */
-class DataReader_extra_fields implements Runnable
-{
+class DataReader_extra_fields implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<DataReader> cls = DataReader.class;
 		TField[] requiredFields = getRequiredFields();
 
-		for (Field f : cls.getDeclaredFields())
-		{
+		for (Field f : cls.getDeclaredFields()) {
 			if (!TField.elementOf(f, requiredFields))
 				throw new AssertionError("Extra field found: " + f);
 		}
 	}
 
-	private TField[] getRequiredFields()
-	{
+	private TField[] getRequiredFields() {
 		TField[] requiredFields = new TField[3];
 		requiredFields[0] = new TField(0, ArrayList.class, "datalist");
 		requiredFields[1] = new TField(0, ArrayList.class, "trainData");
@@ -837,23 +722,19 @@ class DataReader_extra_fields implements Runnable
  * Checks that every field (including private ones) in DecisionTree is one of
  * the required fields
  */
-class DecisionTree_extra_fields implements Runnable
-{
+class DecisionTree_extra_fields implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<DecisionTree> cls = DecisionTree.class;
 		TField[] requiredFields = getRequiredFields();
 
-		for (Field f : cls.getDeclaredFields())
-		{
+		for (Field f : cls.getDeclaredFields()) {
 			if (!TField.elementOf(f, requiredFields))
 				throw new AssertionError("Extra field found: " + f);
 		}
 	}
 
-	private TField[] getRequiredFields()
-	{
+	private TField[] getRequiredFields() {
 		TField[] requiredFields = new TField[3];
 		requiredFields[0] = new TField(0, DecisionTree.DTNode.class,
 				"rootDTNode");
@@ -869,30 +750,26 @@ class DecisionTree_extra_fields implements Runnable
  * Checks that every constructor (including private ones) in Datum is one of the
  * required constructors
  */
-class Datum_extra_constructors implements Runnable
-{
+class Datum_extra_constructors implements Runnable {
 	@Override
 	@SuppressWarnings("rawtypes")
-	public void run()
-	{
+	public void run() {
 		Class<Datum> cls = Datum.class;
 		TConstructor[] requiredConstructors = getRequiredConstructors();
 
-		for (Constructor c : cls.getDeclaredConstructors())
-		{
+		for (Constructor c : cls.getDeclaredConstructors()) {
 			if (!TConstructor.elementOf(c, requiredConstructors))
 				throw new AssertionError("Extra constructor found: " + c);
 		}
 	}
 
-	public TConstructor[] getRequiredConstructors()
-	{
+	public TConstructor[] getRequiredConstructors() {
 		TConstructor[] requiredConstructors = new TConstructor[1];
 		// Get rid of "class " at beginning of name
 		String name = Datum.class.toString().split(" ")[1];
 
 		requiredConstructors[0] = new TConstructor(0, name,
-				new Class[] { double[].class, int.class }, new Class[0]);
+				new Class[]{double[].class, int.class}, new Class[0]);
 		return requiredConstructors;
 	}
 }
@@ -901,24 +778,20 @@ class Datum_extra_constructors implements Runnable
  * Checks that every constructor (including private ones) in DataReader is one
  * of the required constructors
  */
-class DataReader_extra_constructors implements Runnable
-{
+class DataReader_extra_constructors implements Runnable {
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<DataReader> cls = DataReader.class;
 		TConstructor[] requiredConstructors = getRequiredConstructors();
 
-		for (Constructor c : cls.getDeclaredConstructors())
-		{
+		for (Constructor c : cls.getDeclaredConstructors()) {
 			if (!TConstructor.elementOf(c, requiredConstructors))
 				throw new AssertionError("Extra constructor found: " + c);
 		}
 	}
 
-	public TConstructor[] getRequiredConstructors()
-	{
+	public TConstructor[] getRequiredConstructors() {
 		TConstructor[] requiredConstructors = new TConstructor[1];
 		// Get rid of "class" at beginning of name
 		String name = DataReader.class.toString().split(" ")[1];
@@ -933,30 +806,26 @@ class DataReader_extra_constructors implements Runnable
  * Checks that every constructor (including private ones) in DecisionTree is one
  * of the required constructors
  */
-class DecisionTree_extra_constructors implements Runnable
-{
+class DecisionTree_extra_constructors implements Runnable {
 	@SuppressWarnings("rawtypes")
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<DecisionTree> cls = DecisionTree.class;
 		TConstructor[] requiredConstructors = getRequiredConstructors();
 
-		for (Constructor c : cls.getDeclaredConstructors())
-		{
+		for (Constructor c : cls.getDeclaredConstructors()) {
 			if (!TConstructor.elementOf(c, requiredConstructors))
 				throw new AssertionError("Extra constructor found: " + c);
 		}
 	}
 
-	public TConstructor[] getRequiredConstructors()
-	{
+	public TConstructor[] getRequiredConstructors() {
 		TConstructor[] requiredConstructors = new TConstructor[1];
 		// Get rid of "class" at beginning of name
 		String name = DecisionTree.class.toString().split(" ")[1];
 
 		requiredConstructors[0] = new TConstructor(Modifier.PUBLIC, name,
-				new Class[] { ArrayList.class, int.class }, new Class[0]);
+				new Class[]{ArrayList.class, int.class}, new Class[0]);
 		return requiredConstructors;
 	}
 }
@@ -966,23 +835,19 @@ class DecisionTree_extra_constructors implements Runnable
  * the required nested classes
  */
 @SuppressWarnings("rawtypes")
-class Datum_extra_classes implements Runnable
-{
+class Datum_extra_classes implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<Datum> cls = Datum.class;
 		Class[] requiredClasses = getRequiredClasses();
 
-		for (Class c : cls.getDeclaredClasses())
-		{
+		for (Class c : cls.getDeclaredClasses()) {
 			if (!Arrays.asList(requiredClasses).contains(c))
 				throw new AssertionError("Extra nested class found: " + c);
 		}
 	}
 
-	public Class[] getRequiredClasses()
-	{
+	public Class[] getRequiredClasses() {
 		Class[] requiredClasses = new Class[0];
 		return requiredClasses;
 	}
@@ -993,23 +858,19 @@ class Datum_extra_classes implements Runnable
  * of the required nested classes
  */
 @SuppressWarnings("rawtypes")
-class DataReader_extra_classes implements Runnable
-{
+class DataReader_extra_classes implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<DataReader> cls = DataReader.class;
 		Class[] requiredClasses = getRequiredClasses();
 
-		for (Class c : cls.getDeclaredClasses())
-		{
+		for (Class c : cls.getDeclaredClasses()) {
 			if (!Arrays.asList(requiredClasses).contains(c))
 				throw new AssertionError("Extra nested class found: " + c);
 		}
 	}
 
-	public Class[] getRequiredClasses()
-	{
+	public Class[] getRequiredClasses() {
 		Class[] requiredClasses = new Class[0];
 		return requiredClasses;
 	}
@@ -1020,55 +881,45 @@ class DataReader_extra_classes implements Runnable
  * one of the required nested classes
  */
 @SuppressWarnings("rawtypes")
-class DecisionTree_extra_classes implements Runnable
-{
+class DecisionTree_extra_classes implements Runnable {
 	@Override
-	public void run()
-	{
+	public void run() {
 		Class<DecisionTree> cls = DecisionTree.class;
 		Class[] requiredClasses = getRequiredClasses();
 
-		for (Class c : cls.getDeclaredClasses())
-		{
+		for (Class c : cls.getDeclaredClasses()) {
 			if (!Arrays.asList(requiredClasses).contains(c))
 				throw new AssertionError("Extra nested class found: " + c);
 		}
 	}
 
-	public Class[] getRequiredClasses()
-	{
+	public Class[] getRequiredClasses() {
 		Class[] requiredClasses = new Class[1];
 		requiredClasses[0] = DecisionTree.DTNode.class;
 		return requiredClasses;
 	}
 }
 
-class General_extra_code implements Runnable
-{
-	private static String[] tests = { "Datum_extra_methods",
+class General_extra_code implements Runnable {
+	private static String[] tests = {"Datum_extra_methods",
 			"Datum_extra_fields", "Datum_extra_constructors",
 			"Datum_extra_classes", "DataReader_extra_methods",
 			"DataReader_extra_fields", "DataReader_extra_constructors",
 			"DataReader_extra_classes", "DecisionTree_extra_methods",
 			"DecisionTree_extra_fields", "DecisionTree_extra_constructors",
-			"DecisionTree_extra_classes" };
+			"DecisionTree_extra_classes"};
 
 	@Override
-	public void run()
-	{
-		for (String str : tests)
-		{
-			try
-			{
-				Runnable testCase = (Runnable)Class.forName(str)
+	public void run() {
+		for (String str : tests) {
+			try {
+				Runnable testCase = (Runnable) Class.forName(str)
 						.getDeclaredConstructor().newInstance();
 				testCase.run();
-			}
-			catch (InstantiationException | IllegalAccessException
+			} catch (InstantiationException | IllegalAccessException
 					| IllegalArgumentException | InvocationTargetException
 					| NoSuchMethodException | SecurityException
-					| ClassNotFoundException e)
-			{
+					| ClassNotFoundException e) {
 				e.printStackTrace();
 				throw new AssertionError(
 						"An unexpected error occurred and the test " + str
@@ -1083,31 +934,25 @@ class General_extra_code implements Runnable
 // Utility classes
 // ==========================================================================================
 
-class ReadFile
-{
+class ReadFile {
 	public static String localDir = System.getProperty("user.dir");
 	// You might need to change these based on your operating system.
 	public static String base = localDir + "/src/data/";
 	// You might need to change these based on your operating system.
 	public static String basedb = localDir + "/src/data/db/";
 
-	public static DecisionTree getDTFromFile(String filename)
-	{
+	public static DecisionTree getDTFromFile(String filename) {
 		DecisionTree dt = DataReader.readSerializedTree(base + filename);
 		if (dt == null)
 			throw new AssertionError("[ERROR] Could not read DT from file.");
 		return dt;
 	}
 
-	public static DataReader getCSVDataReader(String filename)
-	{
+	public static DataReader getCSVDataReader(String filename) {
 		DataReader dr = new DataReader();
-		try
-		{
+		try {
 			dr.read_data(basedb + filename);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new AssertionError("[ERROR] Could not read csv file.");
 		}
@@ -1120,8 +965,7 @@ class ReadFile
  * java.lang.reflect.Method (which has no public constructor).
  */
 @SuppressWarnings("rawtypes")
-class TMethod
-{
+class TMethod {
 	private int modifiers;
 	private Class returnType;
 	private String name;
@@ -1133,8 +977,7 @@ class TMethod
 	 * corresponding fields
 	 */
 	public TMethod(int modifiers, Class returnType, String name, Class[] params,
-			Class[] exceptions)
-	{
+			Class[] exceptions) {
 		this.modifiers = modifiers;
 		this.returnType = returnType;
 		this.name = name;
@@ -1148,27 +991,22 @@ class TMethod
 	 * 
 	 * This operation is not commutative for TMethods and Methods
 	 */
-	public boolean equals(Object o)
-	{
-		if (o instanceof Method)
-		{
-			Method m = (Method)o;
+	public boolean equals(Object o) {
+		if (o instanceof Method) {
+			Method m = (Method) o;
 			return this.modifiers == m.getModifiers()
 					&& this.returnType.equals(m.getReturnType())
 					&& this.name.equals(m.getName())
 					&& Arrays.equals(this.params, m.getParameterTypes())
 					&& Arrays.equals(this.exceptions, m.getExceptionTypes());
-		}
-		else if (o instanceof TMethod)
-		{
-			TMethod t = (TMethod)o;
+		} else if (o instanceof TMethod) {
+			TMethod t = (TMethod) o;
 			return this.modifiers == t.modifiers
 					&& this.returnType.equals(t.returnType)
 					&& this.name.equals(t.name)
 					&& Arrays.equals(this.params, t.params)
 					&& Arrays.equals(this.exceptions, t.exceptions);
-		}
-		else
+		} else
 			return false;
 	}
 
@@ -1177,10 +1015,8 @@ class TMethod
 	 * elements in tMethods
 	 */
 	@SuppressWarnings("unlikely-arg-type")
-	public static boolean elementOf(Method method, TMethod[] tMethods)
-	{
-		for (TMethod t : tMethods)
-		{
+	public static boolean elementOf(Method method, TMethod[] tMethods) {
+		for (TMethod t : tMethods) {
 			if (t.equals(method))
 				return true;
 		}
@@ -1193,8 +1029,7 @@ class TMethod
  * java.lang.reflect.Field (which has no public constructor).
  */
 @SuppressWarnings("rawtypes")
-class TField
-{
+class TField {
 	private int modifiers;
 	private Class type;
 	private String name;
@@ -1203,46 +1038,39 @@ class TField
 	 * Creates a new TField by saving all the given arguments directly to the
 	 * corresponding fields
 	 */
-	public TField(int modifiers, Class type, String name)
-	{
+	public TField(int modifiers, Class type, String name) {
 		this.modifiers = modifiers;
 		this.type = type;
 		this.name = name;
 	}
 
 	/*
-	 * A TField is equal to a TField or a Field if and only if all its fields match
+	 * A TField is equal to a TField or a Field if and only if all its fields
+	 * match
 	 * 
 	 * This operation is not commutative for TFields and Fields
 	 */
-	public boolean equals(Object o)
-	{
-		if (o instanceof Field)
-		{
-			Field f = (Field)o;
+	public boolean equals(Object o) {
+		if (o instanceof Field) {
+			Field f = (Field) o;
 			return this.modifiers == f.getModifiers()
 					&& this.type.equals(f.getType())
 					&& this.name.equals(f.getName());
-		}
-		else if (o instanceof TField)
-		{
-			TField t = (TField)o;
+		} else if (o instanceof TField) {
+			TField t = (TField) o;
 			return this.modifiers == t.modifiers && this.type.equals(t.type)
 					&& this.name.equals(t.name);
-		}
-		else
+		} else
 			return false;
 	}
 
 	/*
-	 * Checks if field is equal (using TField.equals(field)) to any of the elements
-	 * in tFields
+	 * Checks if field is equal (using TField.equals(field)) to any of the
+	 * elements in tFields
 	 */
 	@SuppressWarnings("unlikely-arg-type")
-	public static boolean elementOf(Field field, TField[] tFields)
-	{
-		for (TField t : tFields)
-		{
+	public static boolean elementOf(Field field, TField[] tFields) {
+		for (TField t : tFields) {
 			if (t.equals(field))
 				return true;
 		}
@@ -1257,8 +1085,7 @@ class TField
  * * "Ironic. He could constructor others, but not himself."
  */
 @SuppressWarnings("rawtypes")
-class TConstructor
-{
+class TConstructor {
 	private int modifiers;
 	private String name;
 	private Class[] params;
@@ -1269,8 +1096,7 @@ class TConstructor
 	 * corresponding fields
 	 */
 	public TConstructor(int modifiers, String name, Class[] params,
-			Class[] exceptions)
-	{
+			Class[] exceptions) {
 		this.modifiers = modifiers;
 		this.name = name;
 		this.params = params;
@@ -1278,42 +1104,35 @@ class TConstructor
 	}
 
 	/*
-	 * A TConstructor is equal to a TConstructor or a Constructor if and only if all
-	 * its fields match
+	 * A TConstructor is equal to a TConstructor or a Constructor if and only if
+	 * all its fields match
 	 * 
 	 * This operation is not commutative for TConstructors and Constructors
 	 */
-	public boolean equals(Object o)
-	{
-		if (o instanceof Constructor)
-		{
-			Constructor c = (Constructor)o;
+	public boolean equals(Object o) {
+		if (o instanceof Constructor) {
+			Constructor c = (Constructor) o;
 			return this.modifiers == c.getModifiers()
 					&& this.name.equals(c.getName())
 					&& Arrays.equals(this.params, c.getParameterTypes())
 					&& Arrays.equals(this.exceptions, c.getExceptionTypes());
-		}
-		else if (o instanceof TConstructor)
-		{
-			TConstructor t = (TConstructor)o;
+		} else if (o instanceof TConstructor) {
+			TConstructor t = (TConstructor) o;
 			return this.modifiers == t.modifiers && this.name.equals(t.name)
 					&& Arrays.equals(this.params, t.params)
 					&& Arrays.equals(this.exceptions, t.exceptions);
-		}
-		else
+		} else
 			return false;
 	}
 
 	/*
-	 * Checks if constructor is equal (using TConstructor.equals(constructor)) to
-	 * any of the elements in tConstructors
+	 * Checks if constructor is equal (using TConstructor.equals(constructor))
+	 * to any of the elements in tConstructors
 	 */
 	@SuppressWarnings("unlikely-arg-type")
 	public static boolean elementOf(Constructor constructor,
-			TConstructor[] tConstructors)
-	{
-		for (TConstructor t : tConstructors)
-		{
+			TConstructor[] tConstructors) {
+		for (TConstructor t : tConstructors) {
 			if (t.equals(constructor))
 				return true;
 		}
@@ -1324,11 +1143,10 @@ class TConstructor
 // Main class
 // ================================================================================
 
-public class Tester
-{
+public class Tester {
 	private static Scanner sc = new Scanner(System.in);
 	// To skip running some tests, just comment them out below.
-	static String[] tests = { "General_extra_code", "DecisionTree_classify1",
+	static String[] tests = {"General_extra_code", "DecisionTree_classify1",
 			"DecisionTree_classify2", "DecisionTree_classify3",
 			"DecisionTree_classify4", "Equals_HighDiffFiles",
 			"Equals_HighSameFiles", "Equals_MinDiffFiles",
@@ -1336,53 +1154,42 @@ public class Tester
 			"Equals_PartialSameFiles", "FillDTNode_High1", "FillDTNode_High2",
 			"FillDTNode_High3", "FillDTNode_Min1", "FillDTNode_Min2",
 			"FillDTNode_Min3", "FillDTNode_Min4", "FillDTNode_Partial1",
-			"FillDTNode_Partial2", "FillDTNode_Partial3" };
+			"FillDTNode_Partial2", "FillDTNode_Partial3"};
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		int numPassed = 0;
 		ArrayList<String> failedTests = new ArrayList<String>(tests.length);
-		for (String className : tests)
-		{
+		for (String className : tests) {
 			System.out.printf("%n======= %s =======%n", className);
 			System.out.flush();
-			try
-			{
-				Runnable testCase = (Runnable)Class.forName(className)
+			try {
+				Runnable testCase = (Runnable) Class.forName(className)
 						.getDeclaredConstructor().newInstance();
 				testCase.run();
 				numPassed++;
-			}
-			catch (AssertionError e)
-			{
+			} catch (AssertionError e) {
 				System.out.println(e);
 				failedTests.add(className);
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				e.printStackTrace(System.out);
 				failedTests.add(className);
 			}
 		}
 		System.out.printf("%n%n%d of %d tests passed.%n", numPassed,
 				tests.length);
-		if (failedTests.size() > 0)
-		{
+		if (failedTests.size() > 0) {
 			System.out.println("Failed test(s):");
-			for (String className : failedTests)
-			{
+			for (String className : failedTests) {
 				int dotIndex = className.indexOf('.');
 				System.out.println("  " + className.substring(dotIndex + 1));
 			}
 		}
-		if (numPassed == tests.length)
-		{
+		if (numPassed == tests.length) {
 			System.out.println("All clear! Great work :)");
 		}
 	}
 
-	public static void pause()
-	{
+	public static void pause() {
 		System.out.println("Press ENTER to continue");
 		sc.nextLine();
 	}
