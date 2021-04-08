@@ -8,8 +8,9 @@ Only add TEST CODE here, not actual assignment code. If you accidentally pushed 
 
 ## How To Use
 
-- You may clone this repo to your Intellij or your preferred IDE. If you aren't familiar with Git, our amazing TA Sasha made a tutorial https://www.youtube.com/playlist?list=PLFvevpoGcNCvjyTjOfPhzqjgb-L_WdX8r
-- Worst case scenario, you may also copy paste the code onto a .java file in the default package. It's not recommended since you might miss something, but it's quicker than the last method.
+- [Recommended] You may clone this repo to your Intellij or your preferred IDE. If you aren't familiar with Git, our amazing TA Sasha made a tutorial: https://www.youtube.com/playlist?list=PLFvevpoGcNCvjyTjOfPhzqjgb-L_WdX8r
+- If you're not familiar with git, you can download the files from the main repo page by clicking ↓Code > Download ZIP. You must put the source code in the default package with the other assignment files.
+- [Not recommended] Worst case scenario, you may manually copy paste all files in the default package.
 - You may also add new tests and create pull requests.
 - Happy coding and debugging!
 
@@ -28,3 +29,9 @@ File -> Import -> Git -> Projects from Git (With Smart Import) -> Clone URI -> p
 Drag your .java files from the assignment into the default package.
 
 Regularly update the tester (pull the repository). Your assignment files will be ignored.
+
+## Using the DecisionTreeVisualizer
+
+At the top of every FillDTNode test in Tester.java you'll find two booleans: verbose and force (which should both be false by default). If verbose is set to true and that test fails, the DecisionTreeVisualizer will be launched and the main tester will pause. If both verbose and force are set to true, the visualizer will be launched even if the test passes.
+
+By default, the tree is trimmed to a certain maximum height. If you wish to see the entire tree, you can open DecisionTreeVisualizer.java, comment out line 32, and uncomment line 33. Note that this will make the tree hard to read in many cases.
