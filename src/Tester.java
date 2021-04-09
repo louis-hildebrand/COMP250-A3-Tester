@@ -579,6 +579,80 @@ class FillDTNode_Partial3 implements Runnable {
 // Student tests
 // ==========================================================================================
 
+class Classify_3Attributes1 implements Runnable {
+	@Override
+	public void run() {
+		boolean verbose = false;
+
+		DataReader dr = ReadFile.getCSVDataReader("data_3_attributes_sci.csv");
+		dr.splitTrainTestData(1);
+
+		DecisionTree dt = ReadFile
+				.getDTFromFile("data_3_attributes/thresh1.ser");
+
+		int counter = 0;
+		int total = dr.trainData.size();
+		for (int i = 0; i < total; i++) {
+			double[] attrs = dr.trainData.get(i).x;
+			int correctLabel = dr.trainData.get(i).y;
+			int classifiedAs = dt.classify(attrs);
+
+			if (verbose) {
+				System.out.println("Attributes: " + Arrays.toString(attrs));
+				System.out.println("Correct label: " + correctLabel
+						+ ", Your classification :" + classifiedAs);
+			}
+			if (correctLabel == classifiedAs) {
+				counter++;
+			}
+		}
+		System.out.println(
+				"Number of correct outputs : " + counter + " out of " + total);
+
+		if (counter != total) {
+			throw new AssertionError("Test failed.");
+		}
+		System.out.println("Test passed.");
+	}
+}
+
+class Classify_5Attributes1 implements Runnable {
+	@Override
+	public void run() {
+		boolean verbose = false;
+
+		DataReader dr = ReadFile.getCSVDataReader("data_5_attributes_sci.csv");
+		dr.splitTrainTestData(1);
+
+		DecisionTree dt = ReadFile
+				.getDTFromFile("data_5_attributes/thresh1.ser");
+
+		int counter = 0;
+		int total = dr.trainData.size();
+		for (int i = 0; i < total; i++) {
+			double[] attrs = dr.trainData.get(i).x;
+			int correctLabel = dr.trainData.get(i).y;
+			int classifiedAs = dt.classify(attrs);
+
+			if (verbose) {
+				System.out.println("Attributes: " + Arrays.toString(attrs));
+				System.out.println("Correct label: " + correctLabel
+						+ ", Your classification :" + classifiedAs);
+			}
+			if (correctLabel == classifiedAs) {
+				counter++;
+			}
+		}
+		System.out.println(
+				"Number of correct outputs : " + counter + " out of " + total);
+
+		if (counter != total) {
+			throw new AssertionError("Test failed.");
+		}
+		System.out.println("Test passed.");
+	}
+}
+
 /*
  * Calls dtNode.equals(String) (expects false and no ClassCastException)
  */
@@ -1335,6 +1409,8 @@ public class Tester {
 			"FillDTNode_Partial1",
 			"FillDTNode_Partial2",
 			"FillDTNode_Partial3",
+			"Classify_3Attributes1",
+			"Classify_5Attributes1",
 			"Equals_String",
 			"Equals_Null",
 			"FillDTNode_3Attributes1",
