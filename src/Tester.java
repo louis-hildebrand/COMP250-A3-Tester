@@ -1067,7 +1067,7 @@ class DecisionTree_extra_classes implements Runnable {
 	}
 }
 
-class General_extra_code implements Runnable {
+class Illegal_helper_code implements Runnable {
 	private static String[] tests = {"Datum_extra_methods",
 			"Datum_extra_fields", "Datum_extra_constructors",
 			"Datum_extra_classes", "DataReader_extra_methods",
@@ -1314,7 +1314,7 @@ public class Tester {
 	private static Scanner sc = new Scanner(System.in);
 	// To skip running some tests, just comment them out below.
 	static String[] tests = {
-			"General_extra_code",
+			"Illegal_helper_code",
 			"DecisionTree_classify1",
 			"DecisionTree_classify2",
 			"DecisionTree_classify3",
