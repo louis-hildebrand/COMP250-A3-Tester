@@ -614,6 +614,134 @@ class Equals_Null implements Runnable {
 	}
 }
 
+class FillDTNode_3Attributes1 implements Runnable {
+	@Override
+	public void run() {
+		boolean verbose = false;
+		boolean force = false;
+
+		int threshold = 1;
+		DataReader dr = ReadFile.getCSVDataReader("data_3_attributes.csv");
+		dr.splitTrainTestData(1);
+
+		DecisionTree serdt = ReadFile.getDTFromFile(
+				"data_3_attributes/thresh" + threshold + ".ser");
+		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
+
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
+				new DecisionTreeVisualizer(serdt, "Expected");
+				new DecisionTreeVisualizer(dt, "Received");
+				Tester.pause();
+			}
+			throw new AssertionError("Test failed.");
+		}
+
+		if (verbose && force) {
+			new DecisionTreeVisualizer(serdt, "Expected");
+			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
+			Tester.pause();
+		}
+		System.out.println("Test passed.");
+	}
+}
+
+class FillDTNode_3Attributes64 implements Runnable {
+	@Override
+	public void run() {
+		boolean verbose = false;
+		boolean force = false;
+
+		int threshold = 64;
+		DataReader dr = ReadFile.getCSVDataReader("data_3_attributes.csv");
+		dr.splitTrainTestData(1);
+
+		DecisionTree serdt = ReadFile.getDTFromFile(
+				"data_3_attributes/thresh" + threshold + ".ser");
+		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
+
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
+				new DecisionTreeVisualizer(serdt, "Expected");
+				new DecisionTreeVisualizer(dt, "Received");
+				Tester.pause();
+			}
+			throw new AssertionError("Test failed.");
+		}
+
+		if (verbose && force) {
+			new DecisionTreeVisualizer(serdt, "Expected");
+			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
+			Tester.pause();
+		}
+		System.out.println("Test passed.");
+	}
+}
+
+class FillDTNode_5Attributes1 implements Runnable {
+	@Override
+	public void run() {
+		boolean verbose = false;
+		boolean force = false;
+
+		int threshold = 1;
+		DataReader dr = ReadFile.getCSVDataReader("data_5_attributes.csv");
+		dr.splitTrainTestData(1);
+
+		DecisionTree serdt = ReadFile.getDTFromFile(
+				"data_5_attributes/thresh" + threshold + ".ser");
+		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
+
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
+				new DecisionTreeVisualizer(serdt, "Expected");
+				new DecisionTreeVisualizer(dt, "Received");
+				Tester.pause();
+			}
+			throw new AssertionError("Test failed.");
+		}
+
+		if (verbose && force) {
+			new DecisionTreeVisualizer(serdt, "Expected");
+			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
+			Tester.pause();
+		}
+		System.out.println("Test passed.");
+	}
+}
+
+class FillDTNode_5Attributes64 implements Runnable {
+	@Override
+	public void run() {
+		boolean verbose = false;
+		boolean force = false;
+
+		int threshold = 64;
+		DataReader dr = ReadFile.getCSVDataReader("data_5_attributes.csv");
+		dr.splitTrainTestData(1);
+
+		DecisionTree serdt = ReadFile.getDTFromFile(
+				"data_5_attributes/thresh" + threshold + ".ser");
+		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
+
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
+				new DecisionTreeVisualizer(serdt, "Expected");
+				new DecisionTreeVisualizer(dt, "Received");
+				Tester.pause();
+			}
+			throw new AssertionError("Test failed.");
+		}
+
+		if (verbose && force) {
+			new DecisionTreeVisualizer(serdt, "Expected");
+			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
+			Tester.pause();
+		}
+		System.out.println("Test passed.");
+	}
+}
+
 /*
  * Checks that every method (including private ones) in Datum.java is one of the
  * required methods
@@ -1208,7 +1336,11 @@ public class Tester {
 			"FillDTNode_Partial2",
 			"FillDTNode_Partial3",
 			"Equals_String",
-			"Equals_Null"
+			"Equals_Null",
+			"FillDTNode_3Attributes1",
+			"FillDTNode_3Attributes64",
+			"FillDTNode_5Attributes1",
+			"FillDTNode_5Attributes64"
 	};
 
 	public static void main(String[] args) {
