@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -5,6 +8,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 // Official tests
@@ -1243,5 +1247,50 @@ public class Tester {
 	public static void pause() {
 		System.out.println("Press ENTER to continue");
 		sc.nextLine();
+	}
+
+	public static void makeRandomDataset(int numValues, int numAttributes,
+			String filename) {
+		Random rand = new Random();
+
+		try (PrintWriter pw = new PrintWriter(new File(filename))) {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < numValues; i++) {
+				for (int j = 0; j < numAttributes; j++) {
+					sb.append(10 * rand.nextDouble() + ",");
+				}
+				if (rand.nextBoolean())
+					sb.append("0\n");
+				else
+					sb.append("1\n");
+			}
+
+			pw.write(sb.toString());
+			// System.out.println("Successfully wrote " + numValues + "
+			// datapoints with " + numAttributes
+			// + " attributes to " + filename);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void createTestData(int numAttributes, int[] thresholds) {
+		String csvFilename = "data_" + numAttributes + "_attributes.csv";
+
+		// Generate dataset
+		makeRandomDataset(200, numAttributes, ReadFile.basedb + csvFilename);
+
+		// Create and serialize tree(s)
+		DataReader dr = ReadFile.getCSVDataReader(csvFilename);
+		dr.splitTrainTestData(1);
+		for (int threshold : thresholds) {
+			DecisionTree dt = new DecisionTree(dr.trainData, threshold);
+			DataReader.writeSerializedTree(dt,
+					ReadFile.base + "data_" + numAttributes
+							+ "_attributes/thresh" + threshold + ".ser");
+			new DecisionTreeVisualizer(dt,
+					"New tree (threshold " + threshold + ")");
+		}
 	}
 }
