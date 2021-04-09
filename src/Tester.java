@@ -1,5 +1,8 @@
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -621,7 +624,7 @@ class FillDTNode_3Attributes1 implements Runnable {
 		boolean force = false;
 
 		int threshold = 1;
-		DataReader dr = ReadFile.getCSVDataReader("data_3_attributes.csv");
+		DataReader dr = ReadFile.getCSVDataReader("data_3_attributes_sci.csv");
 		dr.splitTrainTestData(1);
 
 		DecisionTree serdt = ReadFile.getDTFromFile(
@@ -653,7 +656,7 @@ class FillDTNode_3Attributes64 implements Runnable {
 		boolean force = false;
 
 		int threshold = 64;
-		DataReader dr = ReadFile.getCSVDataReader("data_3_attributes.csv");
+		DataReader dr = ReadFile.getCSVDataReader("data_3_attributes_sci.csv");
 		dr.splitTrainTestData(1);
 
 		DecisionTree serdt = ReadFile.getDTFromFile(
@@ -685,7 +688,7 @@ class FillDTNode_5Attributes1 implements Runnable {
 		boolean force = false;
 
 		int threshold = 1;
-		DataReader dr = ReadFile.getCSVDataReader("data_5_attributes.csv");
+		DataReader dr = ReadFile.getCSVDataReader("data_5_attributes_sci.csv");
 		dr.splitTrainTestData(1);
 
 		DecisionTree serdt = ReadFile.getDTFromFile(
@@ -717,7 +720,7 @@ class FillDTNode_5Attributes64 implements Runnable {
 		boolean force = false;
 
 		int threshold = 64;
-		DataReader dr = ReadFile.getCSVDataReader("data_5_attributes.csv");
+		DataReader dr = ReadFile.getCSVDataReader("data_5_attributes_sci.csv");
 		dr.splitTrainTestData(1);
 
 		DecisionTree serdt = ReadFile.getDTFromFile(
