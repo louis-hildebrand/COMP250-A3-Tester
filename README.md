@@ -36,4 +36,4 @@ At the top of every FillDTNode test in Tester.java you'll find two booleans: ver
 
 When the visualizer launches, two windows will be created. The one titled "DecisionTree Visualizer: Expected" shows the DecisionTree that should have been created. The one titled "DecisionTree Visualizer: Received" shows the DecisionTree that was produced by your code.
 
-By default, the tree is trimmed to a certain maximum height. If you wish to see the entire tree, you can open DecisionTreeVisualizer.java, comment out line 35, and uncomment line 36. Note that this will make the tree hard to read in many cases.
+By default, the tree is trimmed to a certain maximum height. If you wish to see the entire tree, you can open DecisionTreeVisualizer.java, comment out line 30, and uncomment line 31. Note that this will make the tree hard to read in many cases.
