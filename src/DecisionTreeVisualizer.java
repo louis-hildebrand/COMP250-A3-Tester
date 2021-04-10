@@ -26,10 +26,13 @@ public class DecisionTreeVisualizer {
 	private static final Color LEAF_COLOR0 = Color.RED;
 	private static final Color LEAF_COLOR1 = Color.GREEN;
 	private static final Color LEAF_COLOR_UNDEFINED = Color.ORANGE;
-	// Comment out the following line and uncomment the line after that to see
-	// the full tree
-	// Note that this may make the tree hard to read if the height is large
-	private static final int MAX_DEPTH = 4;
+	private static final Color HIDDEN_NODES_COLOR = new Color(165, 196, 242);
+	/*
+	 * Comment out the following line and uncomment the line after that to see
+	 * the full tree. Note that this may make the tree hard to read if the
+	 * height is large.
+	 */
+	private static final int MAX_DEPTH = 5;
 	// private static final int MAX_DEPTH = Integer.MAX_VALUE;
 
 	private JFrame window;
@@ -103,19 +106,22 @@ public class DecisionTreeVisualizer {
 
 	private void drawTree(DecisionTree.DTNode root, Rectangle canvas,
 			JPanel contentPane, int depth) {
-		if (depth > MAX_DEPTH)
-			return;
 		if (root == null)
 			return;
+
+		boolean isAtMaxDepth = (depth >= MAX_DEPTH);
 
 		JLabel rootLabel = makeLabel(root);
 		contentPane.add(rootLabel);
 		double centerX = canvas.getCenterX();
 		rootLabel.setBounds((int) (centerX - NODE_WIDTH / 2),
-				(int) canvas.getMinY(), NODE_WIDTH, NODE_HEIGHT);
+				(int) canvas.getMinY(), NODE_WIDTH,
+				NODE_HEIGHT);
 
-		// TODO Children
-		if (root.left != null) {
+		int parentX = (int) centerX;
+		int parentY = (int) (canvas.getY() + NODE_HEIGHT);
+
+		if (root.left != null && !isAtMaxDepth) {
 			int newX = (int) canvas.getX();
 			int newY = (int) (canvas.getMinY() + NODE_HEIGHT + VERT_SKIP);
 			int newWidth = (int) (canvas.getWidth() / 2);
@@ -126,16 +132,12 @@ public class DecisionTreeVisualizer {
 			drawTree(root.left, leftCanvas, contentPane, depth + 1);
 
 			// Connect parent to child
-			int parentX = (int) centerX;
-			int parentY = (int) (canvas.getY() + NODE_HEIGHT);
 			int leftChildX = (int) (leftCanvas.getCenterX());
 			int leftChildY = parentY + VERT_SKIP;
-			if (depth < MAX_DEPTH) {
-				Line line = new Line(parentX, parentY, leftChildX, leftChildY);
-				contentPane.add(line);
-			}
+			Line line = new Line(parentX, parentY, leftChildX, leftChildY);
+			contentPane.add(line);
 		}
-		if (root.right != null) {
+		if (root.right != null && !isAtMaxDepth) {
 			int newX = (int) (canvas.getX() + canvas.getWidth() / 2);
 			int newY = (int) (canvas.getMinY() + NODE_HEIGHT + VERT_SKIP);
 			int newWidth = (int) (canvas.getWidth() / 2);
@@ -146,15 +148,36 @@ public class DecisionTreeVisualizer {
 			drawTree(root.right, rightCanvas, contentPane, depth + 1);
 
 			// Connect parent to child
-			int parentX = (int) centerX;
-			int parentY = (int) (canvas.getY() + NODE_HEIGHT);
 			int rightChildX = (int) (rightCanvas.getCenterX());
 			int rightChildY = parentY + VERT_SKIP;
-			if (depth < MAX_DEPTH) {
-				Line line = new Line(parentX, parentY, rightChildX,
-						rightChildY);
-				contentPane.add(line);
-			}
+			Line line = new Line(parentX, parentY, rightChildX, rightChildY);
+			contentPane.add(line);
+		}
+
+		if (isAtMaxDepth && !root.leaf) {
+			// Add label to show that there are more labels
+			JLabel extendedLabel = new JLabel("   ...   ");
+			extendedLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			extendedLabel.setFont(NORMAL_FONT);
+			extendedLabel
+					.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			extendedLabel.setOpaque(true);
+			extendedLabel.setBackground(HIDDEN_NODES_COLOR);
+
+			int x = (int) (canvas.getCenterX()
+					- extendedLabel.getPreferredSize().getWidth() / 2);
+			int y = (int) (canvas.getY() + NODE_HEIGHT + VERT_SKIP);
+			int width = (int) (extendedLabel.getPreferredSize().getWidth());
+			int height = (int) (extendedLabel.getPreferredSize().getHeight());
+			extendedLabel.setBounds(x, y, width, height);
+
+			// Line
+			Line l = new Line(parentX, y - VERT_SKIP, parentX, y);
+			contentPane.add(l);
+			System.out.println(l.getBounds());
+
+			contentPane.add(extendedLabel);
+			return;
 		}
 	}
 
@@ -199,7 +222,9 @@ public class DecisionTreeVisualizer {
 			int x = Math.min(x0, x1);
 			int y = Math.min(y0, y1);
 			int width = Math.abs(x1 - x0);
+			width = Math.max(width, 5);
 			int height = Math.abs(y1 - y0);
+			height = Math.max(height, 5);
 
 			this.setBounds(x, y, width, height);
 		}
