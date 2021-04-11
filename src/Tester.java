@@ -876,7 +876,7 @@ class DataReader_extra_methods implements Runnable {
 }
 
 /*
- * Checks that every non-private method in DataReader is one of the required
+ * Checks that every non-private method in DecisionTree is one of the required
  * methods
  */
 class DecisionTree_extra_methods implements Runnable {
@@ -906,6 +906,40 @@ class DecisionTree_extra_methods implements Runnable {
 				boolean.class, "equals",
 				new Class[]{DecisionTree.class, DecisionTree.class},
 				new Class[0]);
+		return requiredMethods;
+	}
+}
+
+/*
+ * Checks that every non-private method in DTNode is one of the required methods
+ */
+class DTNode_extra_methods implements Runnable {
+	@Override
+	public void run() {
+		Class<DecisionTree.DTNode> cls = DecisionTree.DTNode.class;
+		TMethod[] requiredMethods = getRequiredMethods();
+
+		for (Method m : cls.getDeclaredMethods()) {
+			if (!Modifier.isPrivate(m.getModifiers())
+					&& !TMethod.elementOf(m, requiredMethods)) {
+				throw new AssertionError(
+						"Extra non-private method found: " + m);
+			}
+		}
+	}
+
+	private TMethod[] getRequiredMethods() {
+		TMethod[] requiredMethods = new TMethod[4];
+		requiredMethods[0] = new TMethod(0, DecisionTree.DTNode.class,
+				"fillDTNode",
+				new Class[]{ArrayList.class}, new Class[0]);
+		requiredMethods[1] = new TMethod(0, int.class, "findMajority",
+				new Class[]{ArrayList.class}, new Class[0]);
+		requiredMethods[2] = new TMethod(0, int.class, "classifyAtNode",
+				new Class[]{double[].class}, new Class[0]);
+		requiredMethods[3] = new TMethod(Modifier.PUBLIC, boolean.class,
+				"equals",
+				new Class[]{Object.class}, new Class[0]);
 		return requiredMethods;
 	}
 }
@@ -983,6 +1017,38 @@ class DecisionTree_extra_fields implements Runnable {
 		requiredFields[2] = new TField(
 				Modifier.PUBLIC + Modifier.STATIC + Modifier.FINAL, long.class,
 				"serialVersionUID");
+		return requiredFields;
+	}
+}
+
+/*
+ * Checks that every field (including private ones) in DTNode is one of the
+ * required fields
+ */
+class DTNode_extra_fields implements Runnable {
+	@Override
+	public void run() {
+		Class<DecisionTree.DTNode> cls = DecisionTree.DTNode.class;
+		TField[] requiredFields = getRequiredFields();
+
+		for (Field f : cls.getDeclaredFields()) {
+			if (!TField.elementOf(f, requiredFields))
+				throw new AssertionError("Extra field found: " + f);
+		}
+	}
+
+	private TField[] getRequiredFields() {
+		TField[] requiredFields = new TField[8];
+		requiredFields[0] = new TField(
+				Modifier.PUBLIC + Modifier.STATIC + Modifier.FINAL, long.class,
+				"serialVersionUID");
+		requiredFields[1] = new TField(0, boolean.class, "leaf");
+		requiredFields[2] = new TField(0, int.class, "label");
+		requiredFields[3] = new TField(0, int.class, "attribute");
+		requiredFields[4] = new TField(0, double.class, "threshold");
+		requiredFields[5] = new TField(0, DecisionTree.DTNode.class, "left");
+		requiredFields[6] = new TField(0, DecisionTree.DTNode.class, "right");
+		requiredFields[7] = new TField(4112, DecisionTree.class, "this$0");
 		return requiredFields;
 	}
 }
@@ -1072,6 +1138,34 @@ class DecisionTree_extra_constructors implements Runnable {
 }
 
 /*
+ * Checks that every constructor (including private ones) in DTNode is one of
+ * the required constructors
+ */
+class DTNode_extra_constructors implements Runnable {
+	@SuppressWarnings("rawtypes")
+	@Override
+	public void run() {
+		Class<DecisionTree.DTNode> cls = DecisionTree.DTNode.class;
+		TConstructor[] requiredConstructors = getRequiredConstructors();
+
+		for (Constructor c : cls.getDeclaredConstructors()) {
+			if (!TConstructor.elementOf(c, requiredConstructors))
+				throw new AssertionError("Extra constructor found: " + c);
+		}
+	}
+
+	public TConstructor[] getRequiredConstructors() {
+		TConstructor[] requiredConstructors = new TConstructor[1];
+		// Get rid of "class" at beginning of name
+		String name = DecisionTree.DTNode.class.toString().split(" ")[1];
+
+		requiredConstructors[0] = new TConstructor(0, name,
+				new Class[]{DecisionTree.class}, new Class[0]);
+		return requiredConstructors;
+	}
+}
+
+/*
  * Checks that every nested class (including private ones) in Datum is one of
  * the required nested classes
  */
@@ -1141,6 +1235,29 @@ class DecisionTree_extra_classes implements Runnable {
 	}
 }
 
+/*
+ * Checks that every nested class (including private ones) in DTNode is one of
+ * the required nested classes
+ */
+@SuppressWarnings("rawtypes")
+class DTNode_extra_classes implements Runnable {
+	@Override
+	public void run() {
+		Class<DecisionTree.DTNode> cls = DecisionTree.DTNode.class;
+		Class[] requiredClasses = getRequiredClasses();
+
+		for (Class c : cls.getDeclaredClasses()) {
+			if (!Arrays.asList(requiredClasses).contains(c))
+				throw new AssertionError("Extra nested class found: " + c);
+		}
+	}
+
+	public Class[] getRequiredClasses() {
+		Class[] requiredClasses = new Class[0];
+		return requiredClasses;
+	}
+}
+
 class Illegal_helper_code implements Runnable {
 	private static String[] tests = {"Datum_extra_methods",
 			"Datum_extra_fields", "Datum_extra_constructors",
@@ -1148,7 +1265,9 @@ class Illegal_helper_code implements Runnable {
 			"DataReader_extra_fields", "DataReader_extra_constructors",
 			"DataReader_extra_classes", "DecisionTree_extra_methods",
 			"DecisionTree_extra_fields", "DecisionTree_extra_constructors",
-			"DecisionTree_extra_classes"};
+			"DecisionTree_extra_classes", "DTNode_extra_methods",
+			"DTNode_extra_fields",
+			"DTNode_extra_constructors", "DTNode_extra_classes"};
 
 	@Override
 	public void run() {
