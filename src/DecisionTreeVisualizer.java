@@ -43,7 +43,7 @@ public class DecisionTreeVisualizer {
 
 	private void createAndShowGUI(DecisionTree dt, String header) {
 		window = new JFrame();
-		window.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		window.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		window.setSize(1400, 800);
 		window.setLocationRelativeTo(null);
 
@@ -169,7 +169,6 @@ public class DecisionTreeVisualizer {
 			// Line
 			Line l = new Line(parentX, y - VERT_SKIP, parentX, y);
 			contentPane.add(l);
-			System.out.println(l.getBounds());
 
 			contentPane.add(extendedLabel);
 			return;
