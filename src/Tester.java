@@ -1056,8 +1056,7 @@ class DecisionTree_extra_fields implements Runnable {
 }
 
 /*
- * Checks that every field (including private ones) in DTNode is one of the
- * required fields
+ * Checks that every non-private field in DTNode is one of the required fields
  */
 class DTNode_extra_fields implements Runnable {
 	@Override
@@ -1066,7 +1065,8 @@ class DTNode_extra_fields implements Runnable {
 		TField[] requiredFields = getRequiredFields();
 
 		for (Field f : cls.getDeclaredFields()) {
-			if (!TField.elementOf(f, requiredFields))
+			if (!Modifier.isPrivate(f.getModifiers())
+					&& !TField.elementOf(f, requiredFields))
 				throw new AssertionError("Extra field found: " + f);
 		}
 	}
