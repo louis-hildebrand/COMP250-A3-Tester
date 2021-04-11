@@ -823,11 +823,13 @@ class FillDTNode_NonDecreasingEntropy1 implements Runnable {
 		boolean force = false;
 
 		int threshold = 1;
-		DataReader dr = ReadFile.getCSVDataReader("data_non_decreasing_entropy.csv");
+		DataReader dr = ReadFile
+				.getCSVDataReader("data_non_decreasing_entropy.csv");
 		dr.splitTrainTestData(1);
 
 		DecisionTree serdt = ReadFile
-				.getDTFromFile("data_non_decreasing_entropy/thresh" + threshold + ".ser");
+				.getDTFromFile("data_non_decreasing_entropy/thresh" + threshold
+						+ ".ser");
 		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 
 		if (!DecisionTree.equals(serdt, dt)) {
@@ -1315,7 +1317,7 @@ class Illegal_helper_code implements Runnable {
 				e.printStackTrace();
 				throw new AssertionError(
 						"An unexpected error occurred and the test " + str
-								+ " could not be run.");
+						+ " could not be run.");
 			}
 		}
 
@@ -1380,9 +1382,10 @@ class TMethod {
 	/*
 	 * A TMethod is equal to a TMethod or a Method if and only if all its fields
 	 * match
-	 * 
+	 *
 	 * This operation is not commutative for TMethods and Methods
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Method) {
 			Method m = (Method) o;
@@ -1439,9 +1442,10 @@ class TField {
 	/*
 	 * A TField is equal to a TField or a Field if and only if all its fields
 	 * match
-	 * 
+	 *
 	 * This operation is not commutative for TFields and Fields
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Field) {
 			Field f = (Field) o;
@@ -1473,7 +1477,7 @@ class TField {
 /*
  * Stores information about Constructors. Is meant to be compared to instances
  * of java.lang.reflect.Constructor (which has no public constructor*).
- * 
+ *
  * * "Ironic. He could constructor others, but not himself."
  */
 @SuppressWarnings("rawtypes")
@@ -1498,9 +1502,10 @@ class TConstructor {
 	/*
 	 * A TConstructor is equal to a TConstructor or a Constructor if and only if
 	 * all its fields match
-	 * 
+	 *
 	 * This operation is not commutative for TConstructors and Constructors
 	 */
+	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Constructor) {
 			Constructor c = (Constructor) o;
@@ -1585,9 +1590,6 @@ public class Tester {
 			} catch (AssertionError e) {
 				System.out.println(e);
 				failedTests.add(className);
-			} catch (Exception e) {
-				e.printStackTrace(System.out);
-				failedTests.add(className);
 			} catch (StackOverflowError e) {
 				StackTraceElement[] elements = e.getStackTrace();
 				System.out.println(className + " caused a stack overflow at: ");
@@ -1595,8 +1597,12 @@ public class Tester {
 					System.out.println(elements[i]);
 				}
 				if (elements.length >= 5) {
-					System.out.println("...and " + (elements.length - 5) + " more elements.");
+					System.out.println("...and " + (elements.length - 5)
+							+ " more elements.");
 				}
+				failedTests.add(className);
+			} catch (Throwable t) {
+				t.printStackTrace();
 				failedTests.add(className);
 			}
 		}
@@ -1658,7 +1664,7 @@ public class Tester {
 			DecisionTree dt = new DecisionTree(dr.trainData, threshold);
 			DataReader.writeSerializedTree(dt,
 					ReadFile.base + "data_" + numAttributes
-							+ "_attributes/thresh" + threshold + ".ser");
+					+ "_attributes/thresh" + threshold + ".ser");
 			new DecisionTreeVisualizer(dt,
 					"New tree (threshold " + threshold + ")");
 		}
