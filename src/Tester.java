@@ -1588,6 +1588,16 @@ public class Tester {
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
 				failedTests.add(className);
+			} catch (StackOverflowError e) {
+				StackTraceElement[] elements = e.getStackTrace();
+				System.out.println(className + " caused a stack overflow at: ");
+				for (int i = 0; i < 5 && i < elements.length; i++) {
+					System.out.println(elements[i]);
+				}
+				if (elements.length >= 5) {
+					System.out.println("...and " + (elements.length - 5) + " more elements.");
+				}
+				failedTests.add(className);
 			}
 		}
 		System.out.printf("%n%n%d of %d tests passed.%n", numPassed,
