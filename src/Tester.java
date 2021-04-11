@@ -816,6 +816,38 @@ class FillDTNode_5Attributes64 implements Runnable {
 	}
 }
 
+class FillDTNode_NonDecreasingEntropy1 implements Runnable {
+	@Override
+	public void run() {
+		boolean verbose = false;
+		boolean force = false;
+
+		int threshold = 1;
+		DataReader dr = ReadFile.getCSVDataReader("data_non_decreasing_entropy.csv");
+		dr.splitTrainTestData(1);
+
+		DecisionTree serdt = ReadFile
+				.getDTFromFile("data_non_decreasing_entropy/thresh" + threshold + ".ser");
+		DecisionTree dt = new DecisionTree(dr.trainData, threshold);
+
+		if (!DecisionTree.equals(serdt, dt)) {
+			if (verbose) {
+				new DecisionTreeVisualizer(serdt, "Expected");
+				new DecisionTreeVisualizer(dt, "Received");
+				Tester.pause();
+			}
+			throw new AssertionError("Test failed.");
+		}
+
+		if (verbose && force) {
+			new DecisionTreeVisualizer(serdt, "Expected");
+			new DecisionTreeVisualizer(dt, "Received (equal to expected)");
+			Tester.pause();
+		}
+		System.out.println("Test passed.");
+	}
+}
+
 /*
  * Checks that every method (including private ones) in Datum.java is one of the
  * required methods
@@ -1535,7 +1567,8 @@ public class Tester {
 			"FillDTNode_3Attributes1",
 			"FillDTNode_3Attributes64",
 			"FillDTNode_5Attributes1",
-			"FillDTNode_5Attributes64"
+			"FillDTNode_5Attributes64",
+			"FillDTNode_NonDecreasingEntropy1",
 	};
 
 	public static void main(String[] args) {
